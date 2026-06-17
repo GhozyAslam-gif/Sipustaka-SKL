@@ -8,16 +8,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-z%f9q0e+e(8p@&cc#(8iqaw!4)64jb_+bc7mk5&jk_er8*#d=!')
 
-# OTOMATIS: Jadi False kalau di Render, jadi True kalau di laptop Anda
-DEBUG = 'RENDER' not in os.environ
+# OTOMATIS: Jadi False kalau di Railway, jadi True kalau di laptop kamu
+DEBUG = 'RAILWAY_ENVIRONMENT' not in os.environ
 
-# OTOMATIS: Mengikuti domain yang diberikan oleh Render
-ALLOWED_HOSTS = []
-RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
-if RENDER_EXTERNAL_HOSTNAME:
-    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
-else:
-    ALLOWED_HOSTS.extend(['localhost', '127.0.0.1'])
+# OTOMATIS: Menerima domain apapun yang diberikan oleh Railway secara dinamis
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -34,7 +29,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware', # WAJIB UNTUK RENDER (Agar CSS/JS muncul)
+    'whitenoise.middleware.WhiteNoiseMiddleware', # WAJIB DI RAILWAY: Agar file CSS/JS mau muncul
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -63,11 +58,12 @@ TEMPLATES = [
 WSGI_APPLICATION = 'perpus.wsgi.application'
 
 
-# DATABASE OTOMATIS: 
-# Jika di Render, akan membaca Database Render. Jika di laptop, memakai database lokal Anda.
+# DATABASE OTOMATIS:
+# Menggunakan library dj_database_url. 
+# Jika online di Railway, otomatis membaca Postgres Railway. Jika di laptop, tetap pakai postgres lokalmu.
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgresql://postgres:1234@localhost:5432/perpus_db', # Setelan laptop Anda
+        default='postgresql://postgres:1234@localhost:5432/perpus_db', # Setelan lokal laptopmu
         conn_max_age=600
     )
 }
@@ -93,7 +89,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# Mengoptimalkan penyimpanan file statis dengan WhiteNoise
+# Mengoptimalkan kompresi static files lewat WhiteNoise
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
