@@ -8,10 +8,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-z%f9q0e+e(8p@&cc#(8iqaw!4)64jb_+bc7mk5&jk_er8*#d=!')
 
-# OTOMATIS: Jadi False kalau di Railway (demi keamanan), jadi True kalau di laptop kamu
+# OTOMATIS: Jadi False kalau di Railway (aman), jadi True kalau di laptop kamu (bisa ngedit)
 DEBUG = 'RAILWAY_ENVIRONMENT' not in os.environ
 
-# Mengizinkan semua domain yang diberikan oleh Railway
+# Mengizinkan domain yang diberikan Railway secara dinamis
 ALLOWED_HOSTS = ['*']
 
 
@@ -29,7 +29,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware', # WAJIB DI PRODUCTION: Agar file CSS/JS mau muncul
+    'whitenoise.middleware.WhiteNoiseMiddleware', # WAJIB DI RAILWAY: Supaya CSS/JS tampil dan tidak pecah
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -55,18 +55,17 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'perpus.wsgi.application'
-
-
-# DATABASE PINTAR:
-# Jika di Railway, otomatis membaca Database online lewat variabel DATABASE_URL.
-# Jika di laptop, otomatis memakai postgres lokal dengan password '1234'.
+# DATABASE OTOMATIS:
+# Jika di Railway, otomatis membaca Database online. 
+# Jika di laptop kamu, otomatis membaca Postgres lokal laptopmu.
 DATABASES = {
     'default': dj_database_url.config(
         default='postgresql://postgres:1234@localhost:5432/perpus_db',
         conn_max_age=600
     )
 }
+
+WSGI_APPLICATION = 'perpus.wsgi.application'
 
 
 # Password validation
@@ -89,7 +88,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# Mengompres static files dengan WhiteNoise
+# Mengompres file statis menggunakan WhiteNoise
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
