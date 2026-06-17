@@ -8,10 +8,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-z%f9q0e+e(8p@&cc#(8iqaw!4)64jb_+bc7mk5&jk_er8*#d=!')
 
-# OTOMATIS: Jadi False kalau di Railway (untuk keamanan), jadi True kalau di laptop kamu
+# OTOMATIS: Jadi False kalau di Railway (demi keamanan), jadi True kalau di laptop kamu
 DEBUG = 'RAILWAY_ENVIRONMENT' not in os.environ
 
-# Menerima domain apapun yang diberikan oleh Railway secara otomatis
+# Mengizinkan semua domain yang diberikan oleh Railway
 ALLOWED_HOSTS = ['*']
 
 
@@ -58,11 +58,12 @@ TEMPLATES = [
 WSGI_APPLICATION = 'perpus.wsgi.application'
 
 
-# DATABASE OTOMATIS:
-# Jika di Railway, membaca database online. Jika di laptop, memakai postgresql lokal.
+# DATABASE PINTAR:
+# Jika di Railway, otomatis membaca Database online lewat variabel DATABASE_URL.
+# Jika di laptop, otomatis memakai postgres lokal dengan password '1234'.
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgresql://postgres:1234@localhost:5432/perpus_db', # Setelan laptopmu
+        default='postgresql://postgres:1234@localhost:5432/perpus_db',
         conn_max_age=600
     )
 }
@@ -88,7 +89,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# Mengoptimalkan kompresi static files lewat WhiteNoise agar CSS tidak pecah
+# Mengompres static files dengan WhiteNoise
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

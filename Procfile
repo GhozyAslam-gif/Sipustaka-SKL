@@ -1,1 +1,1 @@
-web: gunicorn perpus.wsgi:application
+web: python manage.py migrate && gunicorn perpus.wsgi:application
