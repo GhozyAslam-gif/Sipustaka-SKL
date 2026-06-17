@@ -8,10 +8,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-z%f9q0e+e(8p@&cc#(8iqaw!4)64jb_+bc7mk5&jk_er8*#d=!')
 
 # Di Vercel sebaiknya True dulu saat uji coba, jika sudah lancar bisa diubah ke False
-DEBUG = True
+DEBUG = False
 
 # Wajib agar domain dari Vercel bisa mengakses Django kamu
-ALLOWED_HOSTS = ['.vercel.app', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['GhozyAslam.pythonanywhere.com']
 
 
 # Application definition
