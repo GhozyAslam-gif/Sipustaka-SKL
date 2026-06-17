@@ -1,5 +1,4 @@
 import os
-import dj_database_url
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -8,11 +7,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-z%f9q0e+e(8p@&cc#(8iqaw!4)64jb_+bc7mk5&jk_er8*#d=!')
 
-# OTOMATIS: Jadi False kalau di Railway (aman), jadi True kalau di laptop kamu (bisa ngedit)
-DEBUG = 'RAILWAY_ENVIRONMENT' not in os.environ
+# Di Vercel sebaiknya True dulu saat uji coba, jika sudah lancar bisa diubah ke False
+DEBUG = True
 
-# Mengizinkan domain yang diberikan Railway secara dinamis
-ALLOWED_HOSTS = ['*']
+# Wajib agar domain dari Vercel bisa mengakses Django kamu
+ALLOWED_HOSTS = ['.vercel.app', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -29,7 +28,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware', # WAJIB DI RAILWAY: Supaya CSS/JS tampil dan tidak pecah
+    'whitenoise.middleware.WhiteNoiseMiddleware', # Tetap pertahankan untuk menghandle CSS/JS di Vercel
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -55,17 +54,16 @@ TEMPLATES = [
     },
 ]
 
-# DATABASE OTOMATIS:
-# Jika di Railway, otomatis membaca Database online. 
-# Jika di laptop kamu, otomatis membaca Postgres lokal laptopmu.
-DATABASES = {
-    'default': dj_database_url.config(
-        default='postgresql://postgres:1234@localhost:5432/perpus_db',
-        conn_max_age=600
-    )
-}
-
 WSGI_APPLICATION = 'perpus.wsgi.application'
+
+
+# DATABASE DIUBAH KE SQLITE (100% Gratis & Tanpa Server Tambahan)
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 
 # Password validation
@@ -86,9 +84,9 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# Mengompres file statis menggunakan WhiteNoise
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# Pengaturan lokasi static files khusus untuk Vercel Serverless
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
