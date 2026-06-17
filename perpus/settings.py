@@ -7,12 +7,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-z%f9q0e+e(8p@&cc#(8iqaw!4)64jb_+bc7mk5&jk_er8*#d=!')
 
-if 'PYTHONANYWHERE_SITE' in os.environ:
-    ALLOWED_HOSTS = ['GhozyAslam.pythonanywhere.com']
-    DEBUG = False 
-else:
-    ALLOWED_HOSTS = ['localhost', '127.0.0.1']
-    DEBUG = True  
+
+ALLOWED_HOSTS = ['GhozyAslam.pythonanywhere.com']
+DEBUG = False 
+
 
 
 # Application definition
