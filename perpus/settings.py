@@ -64,12 +64,12 @@ if 'PYTHONANYWHERE_SITE' in os.environ:
     # 1. PENGATURAN DATABASE DI SERVER PYTHONANYWHERE
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'perpus_db',       # Sesuaikan dengan nama DB yang dibuat di PythonAnywhere
-            'USER': 'GhozyAslam',      # Biasanya menggunakan username PythonAnywhere Anda
-            'PASSWORD': '1234',        # Password DB di PythonAnywhere
-            'HOST': 'GhozyAslam-postgres.postgres.pythonanywhere-services.com',
-            'PORT': '15432',
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'GhozyAslam$perpus_db',       # Format wajib akun gratis: username$nama_db
+            'USER': 'GhozyAslam',
+            'PASSWORD': '1234',    # Buat password ini di tab Databases -> MySQL
+            'HOST': 'GhozyAslam.mysql.pythonanywhere-services.com',
+            'PORT': '3306',
         }
     }
 else:
