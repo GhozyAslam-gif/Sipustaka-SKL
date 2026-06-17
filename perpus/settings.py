@@ -57,13 +57,32 @@ TEMPLATES = [
 WSGI_APPLICATION = 'perpus.wsgi.application'
 
 
-# DATABASE DIUBAH KE SQLITE (100% Gratis & Tanpa Server Tambahan)
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+
+# Cek apakah project sedang berjalan di server PythonAnywhere atau di komputer lokal
+if 'PYTHONANYWHERE_SITE' in os.environ:
+    # 1. PENGATURAN DATABASE DI SERVER PYTHONANYWHERE
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'perpus_db',       # Sesuaikan dengan nama DB yang dibuat di PythonAnywhere
+            'USER': 'GhozyAslam',      # Biasanya menggunakan username PythonAnywhere Anda
+            'PASSWORD': '1234',        # Password DB di PythonAnywhere
+            'HOST': 'GhozyAslam-postgres.postgres.pythonanywhere-services.com',
+            'PORT': '15432',
+        }
     }
-}
+else:
+    # 2. PENGATURAN DATABASE DI LAPTOP/PC LOKAL ANDA
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'perpus_db',       # Nama database postgres di laptop Anda
+            'USER': 'postgres',        # Username postgres di laptop Anda
+            'PASSWORD': '1234',        # Password postgres di laptop Anda
+            'HOST': 'localhost',       # Wajib localhost untuk komputer sendiri
+            'PORT': '5432',            # Port default postgres lokal adalah 5432
+        }
+    }
 
 
 # Password validation
