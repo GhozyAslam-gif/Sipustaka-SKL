@@ -24,8 +24,10 @@ SECRET_KEY = 'django-insecure-z%f9q0e+e(8p@&cc#(8iqaw!4)64jb_+bc7mk5&jk_er8*#d=!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
+# Ubah bagian ini
 ALLOWED_HOSTS = [
-    'GhozyAslam.pythonanywhere.com'
+    'GhozyAslam.pythonanywhere.com',
+    'www.GhozyAslam.pythonanywhere.com',
 ]
 
 
@@ -75,14 +77,15 @@ WSGI_APPLICATION = 'perpus.wsgi.application'
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'perpus_db',
-        'USER': 'postgres',
-        'PASSWORD': '1234',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': 'GhozyAslam$perpus_db',  # Biasanya formatnya: username$nama_db
+        'USER': 'GhozyAslam',            # Username PythonAnywhere Anda
+        'PASSWORD': 'ePdTe$_We-2hWX(', 
+        'HOST': 'postgres', # Lihat di halaman database Anda
+        'PORT': '15432',                 # Ingat, port Postgres PA biasanya 15432, bukan 5432
     }
 }
 
