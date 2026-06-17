@@ -84,7 +84,7 @@ DATABASES = {
         'NAME': 'GhozyAslam$perpus_db',  # Biasanya formatnya: username$nama_db
         'USER': 'GhozyAslam',            # Username PythonAnywhere Anda
         'PASSWORD': 'ePdTe$_We-2hWX(', 
-        'HOST': 'postgres', # Lihat di halaman database Anda
+        'HOST': 'GhozyAslam.postgres.pythonanywhere.com', # Lihat di halaman database Anda
         'PORT': '15432',                 # Ingat, port Postgres PA biasanya 15432, bukan 5432
     }
 }
