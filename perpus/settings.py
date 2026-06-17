@@ -61,30 +61,25 @@ WSGI_APPLICATION = 'perpus.wsgi.application'
 
 # Cek apakah project sedang berjalan di server PythonAnywhere atau di komputer lokal
 if 'PYTHONANYWHERE_SITE' in os.environ:
-    # 1. PENGATURAN DATABASE DI SERVER PYTHONANYWHERE
+    # 1. PENGATURAN DATABASE DI SERVER PYTHONANYWHERE (PAKAI SQLITE GRATIS)
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'GhozyAslam$perpus_db',       # Format wajib akun gratis: username$nama_db
-            'USER': 'GhozyAslam',
-            'PASSWORD': '1234',    # Buat password ini di tab Databases -> MySQL
-            'HOST': 'GhozyAslam.mysql.pythonanywhere-services.com',
-            'PORT': '3306',
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
 else:
-    # 2. PENGATURAN DATABASE DI LAPTOP/PC LOKAL ANDA
+    # 2. PENGATURAN DATABASE DI LAPTOP/PC LOKAL ANDA (TETAP POSTGRESQL)
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'perpus_db',       # Nama database postgres di laptop Anda
-            'USER': 'postgres',        # Username postgres di laptop Anda
-            'PASSWORD': '1234',        # Password postgres di laptop Anda
-            'HOST': 'localhost',       # Wajib localhost untuk komputer sendiri
-            'PORT': '5432',            # Port default postgres lokal adalah 5432
+            'NAME': 'perpus_db',       
+            'USER': 'postgres',        
+            'PASSWORD': '1234',        
+            'HOST': 'localhost',       
+            'PORT': '5432',            
         }
     }
-
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
