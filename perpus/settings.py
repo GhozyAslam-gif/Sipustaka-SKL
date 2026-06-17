@@ -58,26 +58,10 @@ TEMPLATES = [
 WSGI_APPLICATION = 'perpus.wsgi.application'
 
 
-
-# Cek apakah project sedang berjalan di server PythonAnywhere atau di komputer lokal
-if 'PYTHONANYWHERE_SITE' in os.environ:
-    # 1. PENGATURAN DATABASE DI SERVER PYTHONANYWHERE (PAKAI SQLITE GRATIS)
-    DATABASES = {
+DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
-else:
-    # 2. PENGATURAN DATABASE DI LAPTOP/PC LOKAL ANDA (TETAP POSTGRESQL)
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'perpus_db',       
-            'USER': 'postgres',        
-            'PASSWORD': '1234',        
-            'HOST': 'localhost',       
-            'PORT': '5432',            
         }
     }
 
