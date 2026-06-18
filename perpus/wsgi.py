@@ -2,7 +2,7 @@ import os
 import sys
 
 # Jalur direktori utama tempat proyek Anda berada
-path = '/home/GhozyAslam/perpus'
+path = '/home/Ghozy/perpus'
 if path not in sys.path:
     sys.path.insert(0, path)
 

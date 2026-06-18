@@ -8,15 +8,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-z%f9q0e+e(8p@&cc#(8iqaw!4)64jb_+ac7mk5&jk_er8*#c=!')
 
 
-# CARA OTOMATIS: Cek apakah project dijalankan di server PythonAnywhere
-if 'PYTHONANYWHERE_SITE' in os.environ:
-    DEBUG = False
-    ALLOWED_HOSTS = ['GhozyAslam.pythonanywhere.com', 'www.GhozyAslam.pythonanywhere.com']
-else:
-    # Setelan otomatis kembali ramah untuk laptop lokal Anda
-    DEBUG = True
-    ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
-
+DEBUG = False
+ALLOWED_HOSTS = ['GhozyAslam.pythonanywhere.com', 'www.GhozyAslam.pythonanywhere.com']
 # Application definition
 
 INSTALLED_APPS = [
