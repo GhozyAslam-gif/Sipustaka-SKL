@@ -5,12 +5,17 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-z%f9q0e+e(8p@&cc#(8iqaw!4)64jb_+bc7mk5&jk_er8*#d=!')
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-z%f9q0e+e(8p@&cc#(8iqaw!4)64jb_+ac7mk5&jk_er8*#c=!')
 
 
-DEBUG = False 
-
-ALLOWED_HOSTS = ['GhozyAslam.pythonanywhere.com']
+# CARA OTOMATIS: Cek apakah project dijalankan di server PythonAnywhere
+if 'PYTHONANYWHERE_SITE' in os.environ:
+    DEBUG = False
+    ALLOWED_HOSTS = ['GhozyAslam.pythonanywhere.com', 'www.GhozyAslam.pythonanywhere.com']
+else:
+    # Setelan otomatis kembali ramah untuk laptop lokal Anda
+    DEBUG = True
+    ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 # Application definition
 
@@ -77,15 +82,18 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# Pengaturan lokasi static files khusus untuk Vercel Serverless
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIRS = []
-_local_static = os.path.join(BASE_DIR, 'static')
-if os.path.exists(_local_static):
-    STATICFILES_DIRS.append(_local_static)
+# PERBAIKAN: Storage backend khusus untuk WhiteNoise agar CSS/JS tidak pecah
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
